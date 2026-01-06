@@ -1,0 +1,62 @@
+.app {
+  min-height: 85vh;
+  // background-color: var(--accent-color);
+  background-image: linear-gradient(
+    to right bottom,
+    var(--accent-color),
+    var(--accent-color-dark)
+  );
+  box-shadow: 1rem 1rem 0.5rem var(--primary-color);
+  text-align: center;
+
+  &_header {
+    font-size: var(--font-size-extra);
+    letter-spacing: 1.2px;
+    line-height: 1.5;
+    font-weight: 600;
+    padding-bottom: 0.75rem;
+  }
+
+  &_result {
+    font-size: var(--font-size-extra);
+  }
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size);
+
+    & .section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 16rem;
+      margin: 0.15rem;
+      padding: 0.15rem;
+
+      select,
+      input {
+        font-size: var(--font-size);
+        width: 8rem;
+      }
+
+      button {
+        font-size: var(--font-size);
+        color: var(--text-color);
+        width: 5rem;
+        height: 2.5rem;
+        border-radius: 0.3rem;
+
+        &.success {
+          background-color: var(--success-color);
+        }
+
+        &.warning {
+          background-color: var(--warning-color);
+        }
+      }
+    }
+  }
+}

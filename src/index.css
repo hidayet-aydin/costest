@@ -3,11 +3,12 @@
 }
 
 :root {
-  --primary-color: #2a3e28;
-  --accent-color: #6b8768;
+  --primary-color: #6b8768;
+  --accent-color: #2a3e28;
+  --accent-color-dark: #192a17;
   --danger-color: #823a48;
-  --success-color: #47a63b;
-  --warning-color: #79553b;
+  --success-color: #393f91;
+  --warning-color: #7c624f;
   --text-color: #eeeaee;
   --link-color: #bee8ba;
 
@@ -15,9 +16,9 @@
   color: var(--text-color);
   background-color: var(--primary-color);
 
-  font-size: 16px;
-  --font-size: 16px;
-  --font-size-extra: 20px;
+  font-size: 20px;
+  --font-size: 20px;
+  --font-size-extra: 24px;
   line-height: 24px;
   font-weight: 400;
 
@@ -33,24 +34,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 1rem; */
-  /* padding-left: 1.5rem; */
-  /* padding-right: 1.5rem; */
   width: 100%;
-  height: 98%;
+  height: 100%;
 }
-
-/* @media screen and (max-width: 50rem) {
-  #root {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-  }
-} */
 
 a:link,
 a:visited {
