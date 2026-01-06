@@ -1,0 +1,21 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 60rem;
+    width: 100%;
+    height: 90vh;
+    padding: 1rem;
+    border-radius: 5px;
+    background-image: linear-gradient(to right bottom, var(--primary-color-100), var(--primary-color-500));
+    box-shadow: 1rem 1rem 0.5rem var(--primary-color-300);
+}
+
+@media screen and (max-width: 50rem) {
+    .container {
+        height: 100vh;
+        padding: 0.5rem;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
