@@ -116,6 +116,50 @@ function Home() {
           </div>
 
           <div className={classes.section}>
+            <label htmlFor="date">Macro Date</label>
+            <input
+              type="number"
+              name="date"
+              id="date"
+              value={inputs.date}
+              onChange={(evt) => changeHandler(evt, "date")}
+            />
+          </div>
+
+          <div className={classes.section}>
+            <label htmlFor="x">X (mm)</label>
+            <input
+              type="number"
+              name="x"
+              id="x"
+              value={inputs.x}
+              onChange={(evt) => changeHandler(evt, "x")}
+            />
+          </div>
+
+          <div className={classes.section}>
+            <label htmlFor="y">Y (mm)</label>
+            <input
+              type="number"
+              name="y"
+              id="y"
+              value={inputs.y}
+              onChange={(evt) => changeHandler(evt, "y")}
+            />
+          </div>
+
+          <div className={classes.section}>
+            <label htmlFor="date">Z (mm)</label>
+            <input
+              type="number"
+              name="z"
+              id="z"
+              value={inputs.z}
+              onChange={(evt) => changeHandler(evt, "z")}
+            />
+          </div>
+
+          <div className={classes.section}>
             <label htmlFor="gf">Glass Fiber</label>
             <select
               name="gf"
@@ -162,50 +206,6 @@ function Home() {
               <option value="4">4</option>
               <option value="4.5">4.5</option>
             </select>
-          </div>
-
-          <div className={classes.section}>
-            <label htmlFor="date">Macro Date</label>
-            <input
-              type="number"
-              name="date"
-              id="date"
-              value={inputs.date}
-              onChange={(evt) => changeHandler(evt, "date")}
-            />
-          </div>
-
-          <div className={classes.section}>
-            <label htmlFor="x">X (mm)</label>
-            <input
-              type="number"
-              name="x"
-              id="x"
-              value={inputs.x}
-              onChange={(evt) => changeHandler(evt, "x")}
-            />
-          </div>
-
-          <div className={classes.section}>
-            <label htmlFor="y">Y (mm)</label>
-            <input
-              type="number"
-              name="y"
-              id="y"
-              value={inputs.y}
-              onChange={(evt) => changeHandler(evt, "y")}
-            />
-          </div>
-
-          <div className={classes.section}>
-            <label htmlFor="date">Z (mm)</label>
-            <input
-              type="number"
-              name="z"
-              id="z"
-              value={inputs.z}
-              onChange={(evt) => changeHandler(evt, "z")}
-            />
           </div>
 
           <div className={classes.section}>

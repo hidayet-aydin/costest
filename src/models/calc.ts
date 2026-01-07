@@ -39,10 +39,10 @@ function preprocessSample(initInputs: inputsType) {
   };
 
   const scaParams = {
-    a: { mean: 607.73091473, std: 500.76702592 },
-    b: { mean: 259.7730155, std: 191.92602203 },
-    c: { mean: 142.91213953, std: 129.89410025 },
-    date: { mean: 2023.95348837, std: 1.18033279 },
+    a: { mean: 609.01396875, std: 501.40495951 },
+    b: { mean: 260.87671094, std: 192.13105667 },
+    c: { mean: 143.39970313, std: 130.209402 },
+    date: { mean: 2023.95703125, std: 1.17680603 },
   };
 
   const catCategories = {
