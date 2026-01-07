@@ -17,46 +17,77 @@
     padding-bottom: 0.75rem;
   }
 
-  &_result {
-    font-size: var(--font-size-extra);
+  label {
+    font-weight: 500;
   }
 
-  &_container {
+  &_body {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size);
+    flex-direction: row;
+    justify-content: space-evenly;
 
-    & .section {
+    @media screen and (max-width: 50rem) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .panel {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      width: 16rem;
-      margin: 0.15rem;
-      padding: 0.15rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size);
 
-      select,
-      input {
-        font-size: var(--font-size);
-        width: 8rem;
-      }
+      & .section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 16rem;
+        margin: 0.15rem;
+        padding: 0.15rem;
 
-      button {
-        font-size: var(--font-size);
-        color: var(--text-color);
-        width: 5rem;
-        height: 2.5rem;
-        border-radius: 0.3rem;
-
-        &.success {
-          background-color: var(--success-color);
+        select,
+        input {
+          font-size: var(--font-size);
+          width: 8rem;
         }
 
-        &.warning {
-          background-color: var(--warning-color);
+        button {
+          font-size: var(--font-size);
+          color: var(--text-color);
+          width: 5rem;
+          height: 2.5rem;
+          border-radius: 0.3rem;
+          border: transparent;
+
+          &.success {
+            background-color: var(--success-color);
+            &:hover {
+              border: 0.75rem;
+              box-shadow: 0.3rem 0.3rem var(--accent-color-dark);
+            }
+          }
+
+          &.warning {
+            background-color: var(--warning-color);
+            &:hover {
+              border: 0.75rem;
+              box-shadow: 0.3rem 0.3rem var(--accent-color-dark);
+            }
+          }
         }
       }
+    }
+
+    .result {
+      height: 100%;
+      width: 10rem;
+      border: 0.75rem;
+      background-color: var(--success-color);
+      border-radius: 0.3rem;
+      box-shadow: 0.3rem 0.3rem var(--accent-color-dark);
+      font-size: var(--font-size-extra);
+      margin-top: 1rem;
     }
   }
 }
