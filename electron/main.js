@@ -6,9 +6,12 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
+    width: 960,
     height: 600,
     show: false,
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
   const startURL = isDev
     ? "http://localhost:3000"
@@ -19,4 +22,20 @@ function createWindow() {
     mainWindow = null;
   });
 }
-app.on("ready", createWindow);
+
+app.whenReady().then(() => {
+  createWindow();
+
+  // macOS specific behavior (reopen on dock click)
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+});
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
