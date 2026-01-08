@@ -13,7 +13,7 @@ type inputsType = {
   z: number;
 };
 
-export async function estimator(
+async function estimator(
   session: ort.InferenceSession | null,
   initInputs: inputsType
 ): Promise<number> {
@@ -71,3 +71,5 @@ function oneHotEncode(catValue: number, categories: (number | string)[]) {
   //   const ref = categories[0];
   return categories.slice(1).map((c) => (catValue === c ? 1 : 0));
 }
+
+export default estimator;

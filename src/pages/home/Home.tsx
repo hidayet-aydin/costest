@@ -4,7 +4,7 @@ import * as ort from "onnxruntime-web";
 import { FaMoneyBillWave } from "@react-icons/all-files/fa/FaMoneyBillWave";
 import { FaTrashAlt } from "@react-icons/all-files/fa/FaTrashAlt";
 
-import { estimator } from "../../models/calc";
+import estimator from "../../models/LinearRegession";
 
 import classes from "./Home.module.scss";
 
