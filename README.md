@@ -17,7 +17,15 @@
 ## Electron
 
 ```bash
-npm i --save-dev concurrently electron electron-builder wait-on
+$ npm i --save-dev electron electron-builder electron-rebuild electron-is-dev electron-packager node-gyp wait-on concurrently
+```
+
+**Extra installlation for Macos**
+
+```bash
+$ brew install --cask wine-stable
+$ brew install --cask gstreamer-development
+$ sudo ln -s "$(which wine)" /usr/local/bin/wine64
 ```
 
 ## License

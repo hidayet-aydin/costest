@@ -6,8 +6,8 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 960,
-    height: 600,
+    width: 1200,
+    height: 800,
     show: false,
     webPreferences: {
       nodeIntegration: true,
@@ -23,6 +23,8 @@ function createWindow() {
   });
 }
 
+app.commandLine.appendSwitch('disable-features', 'UseICUDataFile');
+app.disableHardwareAcceleration();
 app.whenReady().then(() => {
   createWindow();
 
