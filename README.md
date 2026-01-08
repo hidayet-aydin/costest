@@ -14,6 +14,12 @@
 ![](./docs/pictures/desk.png)
 ![](./docs/pictures/mobile.png)
 
+## Electron
+
+```bash
+npm i --save-dev concurrently electron electron-builder wait-on
+```
+
 ## License
 
 MIT Licensed.
