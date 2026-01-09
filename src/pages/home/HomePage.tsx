@@ -6,7 +6,7 @@ import { FaTrashAlt } from "@react-icons/all-files/fa/FaTrashAlt";
 
 import estimator from "../../models/LinearRegession";
 
-import classes from "./Home.module.scss";
+import classes from "./HomePage.module.scss";
 
 ort.env.wasm.simd = true; // Performance-safe defaults
 ort.env.wasm.numThreads = navigator.hardwareConcurrency || 4;
@@ -25,7 +25,7 @@ const initInputs = {
   z: 0,
 };
 
-function Home() {
+function HomePage() {
   const [inputs, setInputs] = useState(initInputs);
   const [session, setSession] = useState<ort.InferenceSession | null>(null);
   const [result, setResult] = useState<number>(0.0);
@@ -238,4 +238,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;
