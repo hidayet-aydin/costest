@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import * as ort from "onnxruntime-web";
 
 import { FaMoneyBillWave } from "@react-icons/all-files/fa/FaMoneyBillWave";
@@ -7,6 +8,8 @@ import { FaTrashAlt } from "@react-icons/all-files/fa/FaTrashAlt";
 import estimator from "../../models/LinearRegession";
 
 import classes from "./HomePage.module.scss";
+
+import { setCollections } from "../../context/collection/collectionSlice";
 
 ort.env.wasm.simd = true; // Performance-safe defaults
 ort.env.wasm.numThreads = navigator.hardwareConcurrency || 4;
@@ -26,6 +29,7 @@ const initInputs = {
 };
 
 function HomePage() {
+  const dispatch = useDispatch();
   const [inputs, setInputs] = useState(initInputs);
   const [session, setSession] = useState<ort.InferenceSession | null>(null);
   const [result, setResult] = useState<number>(0.0);
@@ -46,7 +50,7 @@ function HomePage() {
       | React.ChangeEvent<HTMLInputElement>,
     select: string
   ) => {
-    console.log(select, evt.currentTarget.value);
+    // console.log(select, evt.currentTarget.value);
     let getVal = parseInt(evt.currentTarget.value);
     if (!Number.isNaN(getVal) && select === "thickness") {
       getVal = parseFloat(evt.currentTarget.value);
@@ -59,12 +63,27 @@ function HomePage() {
     setResult(0);
   };
 
-  const estimateHandler = () => {
+  const estimateHandler = useCallback(() => {
     if (!session) return;
     estimator(session, inputs).then((pred) => {
-      if (pred) setResult(pred);
+      if (pred) {
+        setResult(pred);
+
+        dispatch(
+          setCollections({
+            complexity: inputs.complexity,
+            country: inputs.country,
+            cavity: inputs.cavity,
+            date: inputs.date,
+            x: inputs.x,
+            y: inputs.y,
+            z: inputs.z,
+            cost: pred,
+          })
+        );
+      }
     });
-  };
+  }, [dispatch, inputs, session]);
 
   return (
     <div className={classes.app}>

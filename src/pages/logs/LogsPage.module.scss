@@ -27,5 +27,30 @@
     align-items: center;
     justify-content: center;
     font-size: var(--font-size);
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 0.1rem solid var(--accent-color);
+      padding: 0.3rem;
+    }
+
+    th {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      text-align: center;
+      background-color: var(--success-color);
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--accent-color);
+    }
+
+    tr:hover {
+      background-color: var(--accent-color-dark);
+    }
   }
 }
