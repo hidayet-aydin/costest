@@ -26,51 +26,53 @@ const LogsPage: FC = () => {
         <p>Logs</p>
       </div>
 
-      <div className={classes.control_panel}>
-        <button
-          className={classes.warning}
-          type="button"
-          onClick={clearHandler}
-        >
-          <FaTrashAlt />
-        </button>
-      </div>
-
       <div className={classes.app_body}>
-        {collections.length === 0 && <>Waiting for actions!</>}
-        {collections.length > 0 && (
-          <table>
-            <tr>
-              <th>Kind</th>
-              <th>Complexity</th>
-              <th>Mold Country</th>
-              <th>Cavity</th>
-              <th>Macro Date</th>
-              <th>X (mm)</th>
-              <th>Y (mm)</th>
-              <th>x (mm)</th>
-              <th>Thickness</th>
-              <th>Glass Fiber</th>
-              <th>Cost</th>
-            </tr>
+        <div className={classes.control_panel}>
+          <button
+            className={classes.warning}
+            type="button"
+            onClick={clearHandler}
+          >
+            <FaTrashAlt />
+          </button>
+        </div>
 
-            {collections.map((elm, ind) => (
-              <tr key={ind}>
-                <td>{elm.kind}</td>
-                <td>{elm.complexity}</td>
-                <td>{elm.country}</td>
-                <td>{elm.cavity}</td>
-                <td>{elm.date}</td>
-                <td>{elm.x}</td>
-                <td>{elm.y}</td>
-                <td>{elm.z}</td>
-                <td>{elm.thickness}</td>
-                <td>{elm.gf}</td>
-                <td>{elm.cost}</td>
+        <div className={classes.table_panel}>
+          {collections.length === 0 && <>Waiting for actions!</>}
+          {collections.length > 0 && (
+            <table>
+              <tr>
+                <th>Model</th>
+                <th>Complexity</th>
+                <th>Mold Country</th>
+                <th>Cavity</th>
+                <th>Macro Date</th>
+                <th>X (mm)</th>
+                <th>Y (mm)</th>
+                <th>x (mm)</th>
+                <th>Thickness</th>
+                <th>Glass Fiber</th>
+                <th>Cost</th>
               </tr>
-            ))}
-          </table>
-        )}
+
+              {collections.map((elm, ind) => (
+                <tr key={ind}>
+                  <td>{elm.kind}</td>
+                  <td>{elm.complexity}</td>
+                  <td>{elm.country}</td>
+                  <td>{elm.cavity}</td>
+                  <td>{elm.date}</td>
+                  <td>{elm.x}</td>
+                  <td>{elm.y}</td>
+                  <td>{elm.z}</td>
+                  <td>{elm.thickness}</td>
+                  <td>{elm.gf}</td>
+                  <td>{elm.cost}</td>
+                </tr>
+              ))}
+            </table>
+          )}
+        </div>
       </div>
     </div>
   );

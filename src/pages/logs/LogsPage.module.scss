@@ -22,59 +22,66 @@
     font-weight: 500;
   }
 
-  .control_panel {
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 0.3rem;
-
-    button {
-      font-size: var(--font-size);
-      color: var(--text-color);
-      width: 5rem;
-      height: 2.5rem;
-      border-radius: 0.3rem;
-      border: transparent;
-
-      &.warning {
-        background-color: var(--warning-color);
-        &:hover {
-          border: 0.75rem;
-          box-shadow: 0.3rem 0.3rem var(--accent-color-dark);
-        }
-      }
-    }
-  }
-
   &_body {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
     font-size: var(--font-size);
 
-    table {
-      border-collapse: collapse;
+    .control_panel {
+      display: flex;
+      flex-direction: row;
+      justify-items: end;
+      align-items: end;
+      padding: 0.75rem;
+
+      button {
+        font-size: var(--font-size);
+        color: var(--text-color);
+        width: 5rem;
+        height: 2.5rem;
+        border-radius: 0.3rem;
+        border: transparent;
+
+        &.warning {
+          background-color: var(--warning-color);
+          &:hover {
+            border: 0.75rem;
+            box-shadow: 0.3rem 0.3rem var(--accent-color-dark);
+          }
+        }
+      }
     }
 
-    td,
-    th {
-      border: 0.1rem solid var(--accent-color);
-      padding: 0.3rem;
-    }
+    .table_panel {
+      overflow-x: scroll;
+      table {
+        border-collapse: collapse;
+        font-size: 16px;
+      }
 
-    th {
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-      text-align: center;
-      background-color: var(--success-color);
-    }
+      td,
+      th {
+        border: 0.1rem solid var(--accent-color);
+        padding: 0.3rem;
+      }
 
-    tr:nth-child(even) {
-      background-color: var(--accent-color);
-    }
+      th {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        text-align: center;
+        background-color: var(--success-color);
+      }
 
-    tr:hover {
-      background-color: var(--accent-color-dark);
+      tr:nth-child(even) {
+        background-color: var(--accent-color);
+      }
+
+      tr:hover {
+        background-color: var(--accent-color-dark);
+      }
     }
   }
 }

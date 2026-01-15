@@ -98,7 +98,7 @@ function HomePage() {
         inputs,
         kinds: {
           "Closed Cost": ccPred,
-          "Shut Cost": scPred,
+          "Should Cost": scPred,
           "Mean Cost": ((scPred + ccPred) / 2).toFixed(2),
         },
       })
@@ -269,7 +269,7 @@ function HomePage() {
             <p>Closed Cost</p> {ccResult} {"$"}
           </div>
           <div className={classes.results}>
-            <p>Shut Cost</p> {scResult} {"$"}
+            <p>Should Cost</p> {scResult} {"$"}
           </div>
           <div className={classes.results}>
             <p>Mean Cost</p> {meanResult.toFixed(2)} {"$"}
