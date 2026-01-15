@@ -8,7 +8,16 @@
   );
   box-shadow: 1rem 1rem 0.5rem var(--primary-color);
   text-align: center;
+
+  // scrollbar fixed
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & {
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }
 
   &_header {
     font-size: var(--font-size-extra);
