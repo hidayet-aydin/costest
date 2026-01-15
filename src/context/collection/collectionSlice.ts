@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export type collectionType = {
+  kind: string;
   complexity: string;
   country: string;
   cavity: string;
   date: string;
+  gf: string;
+  thickness: number;
   x: number;
   y: number;
   z: number;
@@ -20,7 +23,11 @@ const collectionSlide = createSlice({
   },
   reducers: {
     setCollections: (state, action) => {
-      state.collections.push(action.payload);
+      const inputs = action.payload.inputs;
+      const kinds = action.payload.kinds;
+      for (let kind of Object.keys(kinds)) {
+        state.collections.push({ ...inputs, kind, cost: kinds[kind] });
+      }
     },
     clearCollections: (state, action) => {
       state.collections = [];
@@ -28,5 +35,5 @@ const collectionSlide = createSlice({
   },
 });
 
-export const { setCollections } = collectionSlide.actions;
+export const { setCollections, clearCollections } = collectionSlide.actions;
 export default collectionSlide.reducer;

@@ -5,7 +5,8 @@ import * as ort from "onnxruntime-web";
 import { FaMoneyBillWave } from "@react-icons/all-files/fa/FaMoneyBillWave";
 import { FaTrashAlt } from "@react-icons/all-files/fa/FaTrashAlt";
 
-import estimator from "../../models/LinearRegession";
+import SCEstimator from "../../models/SCLinearRegession";
+import CCEstimator from "../../models/CCLinearRegession";
 
 import classes from "./HomePage.module.scss";
 
@@ -17,29 +18,43 @@ ort.env.logLevel = "error"; // Optional: suppress verbose logs
 
 const initInputs = {
   complexity: 1,
-  country: 1,
+  country: 0,
   cavity: 1,
-  gf: 1,
+  gf: 0,
   graining: 1,
-  thickness: 1,
+  thickness: 1.2,
   date: 2025,
-  x: 0,
-  y: 0,
-  z: 0,
+  x: 1,
+  y: 1,
+  z: 1,
 };
 
 function HomePage() {
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState(initInputs);
-  const [session, setSession] = useState<ort.InferenceSession | null>(null);
-  const [result, setResult] = useState<number>(0.0);
+  const [CCSession, setCCSession] = useState<ort.InferenceSession | null>(null);
+  const [SCSession, setSCSession] = useState<ort.InferenceSession | null>(null);
+  const [ccResult, setCCResult] = useState<number>(0.0);
+  const [scResult, setSCResult] = useState<number>(0.0);
+  const [meanResult, setMeanResult] = useState<number>(0.0);
 
   useEffect(() => {
     async function loadModel() {
-      const session = await ort.InferenceSession.create("/costest.onnx", {
-        executionProviders: ["wasm"],
-      });
-      setSession(session);
+      const CCSession = await ort.InferenceSession.create(
+        "/models/cc_linear.onnx",
+        {
+          executionProviders: ["wasm"],
+        }
+      );
+      setCCSession(CCSession);
+
+      const SCSession = await ort.InferenceSession.create(
+        "/models/sc_linear.onnx",
+        {
+          executionProviders: ["wasm"],
+        }
+      );
+      setSCSession(SCSession);
     }
     loadModel();
   }, []);
@@ -60,30 +75,35 @@ function HomePage() {
 
   const clearHandler = () => {
     setInputs(initInputs);
-    setResult(0);
+    setCCResult(0);
+    setSCResult(0);
+    setMeanResult(0);
   };
 
-  const estimateHandler = useCallback(() => {
-    if (!session) return;
-    estimator(session, inputs).then((pred) => {
-      if (pred) {
-        setResult(pred);
+  const estimateHandler = useCallback(async () => {
+    let ccPred = 0.0;
+    let scPred = 0.0;
 
-        dispatch(
-          setCollections({
-            complexity: inputs.complexity,
-            country: inputs.country,
-            cavity: inputs.cavity,
-            date: inputs.date,
-            x: inputs.x,
-            y: inputs.y,
-            z: inputs.z,
-            cost: pred,
-          })
-        );
-      }
-    });
-  }, [dispatch, inputs, session]);
+    if (CCSession) {
+      ccPred = await CCEstimator(CCSession, inputs);
+    }
+    if (SCSession) {
+      scPred = await SCEstimator(SCSession, inputs);
+    }
+    setCCResult(ccPred);
+    setSCResult(scPred);
+    setMeanResult((scPred + ccPred) / 2);
+    dispatch(
+      setCollections({
+        inputs,
+        kinds: {
+          "Closed Cost": ccPred,
+          "Shut Cost": scPred,
+          "Mean Cost": ((scPred + ccPred) / 2).toFixed(2),
+        },
+      })
+    );
+  }, [dispatch, inputs, CCSession, SCSession]);
 
   return (
     <div className={classes.app}>
@@ -115,8 +135,8 @@ function HomePage() {
               id="country"
               onChange={(evt) => changeHandler(evt, "country")}
             >
-              <option value="1">Turkey</option>
-              <option value="2">China</option>
+              <option value="0">Turkey</option>
+              <option value="1">China</option>
             </select>
           </div>
 
@@ -130,7 +150,7 @@ function HomePage() {
               <option value="1">Cavity - 1</option>
               <option value="2">Cavity - 2</option>
               <option value="4">Cavity - 4</option>
-              {/* <option value="8">Cavity - 8</option> */}
+              <option value="8">Cavity - 8</option>
             </select>
           </div>
 
@@ -184,20 +204,6 @@ function HomePage() {
               name="gf"
               id="gf"
               onChange={(evt) => changeHandler(evt, "gf")}
-              disabled
-            >
-              <option value="0">False</option>
-              <option value="1">True</option>
-            </select>
-          </div>
-
-          <div className={classes.section}>
-            <label htmlFor="graining">Graining</label>
-            <select
-              name="graining"
-              id="graining"
-              onChange={(evt) => changeHandler(evt, "graining")}
-              disabled
             >
               <option value="0">False</option>
               <option value="1">True</option>
@@ -210,7 +216,6 @@ function HomePage() {
               name="thickness"
               id="thickness"
               onChange={(evt) => changeHandler(evt, "thickness")}
-              disabled
             >
               <option value="1.2">1.2</option>
               <option value="1.5">1.5</option>
@@ -224,6 +229,19 @@ function HomePage() {
               <option value="3.5">3.5</option>
               <option value="4">4</option>
               <option value="4.5">4.5</option>
+            </select>
+          </div>
+
+          <div className={classes.section}>
+            <label htmlFor="graining">Graining</label>
+            <select
+              name="graining"
+              id="graining"
+              onChange={(evt) => changeHandler(evt, "graining")}
+              disabled
+            >
+              <option value="0">False</option>
+              <option value="1">True</option>
             </select>
           </div>
 
@@ -247,10 +265,15 @@ function HomePage() {
         </div>
 
         <div className={classes.result}>
-          <p>Result:</p>
-          <p>
-            {result} {"$"}
-          </p>
+          <div className={classes.results}>
+            <p>Closed Cost</p> {ccResult} {"$"}
+          </div>
+          <div className={classes.results}>
+            <p>Shut Cost</p> {scResult} {"$"}
+          </div>
+          <div className={classes.results}>
+            <p>Mean Cost</p> {meanResult.toFixed(2)} {"$"}
+          </div>
         </div>
       </div>
     </div>

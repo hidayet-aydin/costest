@@ -1,5 +1,6 @@
 .app {
   min-height: 85vh;
+  padding: 0.3rem;
   background-image: linear-gradient(
     to right bottom,
     var(--accent-color),
@@ -19,6 +20,29 @@
 
   label {
     font-weight: 500;
+  }
+
+  .control_panel {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0.3rem;
+
+    button {
+      font-size: var(--font-size);
+      color: var(--text-color);
+      width: 5rem;
+      height: 2.5rem;
+      border-radius: 0.3rem;
+      border: transparent;
+
+      &.warning {
+        background-color: var(--warning-color);
+        &:hover {
+          border: 0.75rem;
+          box-shadow: 0.3rem 0.3rem var(--accent-color-dark);
+        }
+      }
+    }
   }
 
   &_body {
